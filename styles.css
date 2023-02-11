@@ -1,52 +1,69 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 18px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 18px;
 }
 
 h1 {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 h2 {
-    font-size: 1.4rem;
+  font-size: 1.4rem;
 }
 
 h3 {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .center {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* 
+/*
 Set all 'width-<size>' CSS classes to 90% of viewport width by default
 e.g. .width-small, .width-medium, .width-large ...
 */
-[class*="width-"] {
-    max-width: 90vw;
+[class*='width-'] {
+  max-width: 90vw;
 }
 
-/* 
+/* form */
+#form-search label {
+  display: block;
+}
+
+#postcode-error {
+  display: inline-block;
+  margin-top: 1rem;
+  background: maroon;
+  color: #fff;
+}
+
+/* generated basic info section */
+.basic__info img {
+  width: 80%;
+}
+
+/*
 Override screen width mobile-first settings for larger viewports
 */
 @media only screen and (min-width: 768px) {
-    .width-small {
-        max-width: 20rem;
-    }
+  .width-small {
+    max-width: 20rem;
+  }
 
-    .width-medium {
-        max-width: 40rem;
-    }
+  .width-medium {
+    max-width: 40rem;
+  }
 
-    .width-large {
-        max-width: 50rem;
-    }
+  .width-large {
+    max-width: 50rem;
+  }
 }
