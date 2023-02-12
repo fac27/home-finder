@@ -11,7 +11,7 @@ export const getPostcodeMap = (postcode) => {
     .join('');
 
   // prettier-ignore
-  const dashedPostcode = `${sanitizedPostcode.slice(0, 3)}-${sanitizedPostcode.slice(3)}`;
+  const dashedPostcode = `${sanitizedPostcode.slice(0, -3)}-${sanitizedPostcode.slice(-3)}`;
 
   return `https://map.getthedata.com/local/${dashedPostcode}.png`;
 };
