@@ -15,7 +15,6 @@ const handleSubmit = (e) => {
       postcodeError.innerHTML = '';
       chosenArea.textContent = postcode;
       getBasicInfo(postcode).then((data) => displayBasicInfo(data));
-
     } else {
       postcodeError.textContent = 'Please enter a valid UK postcode';
     }
@@ -23,22 +22,22 @@ const handleSubmit = (e) => {
 
   postcodeForm.reset();
 
-  getLongAndLat(postcode).then((result) => {
-    const { longitude, latitude } = result;
-    
-    const crimeData = new CrimeData(latitude,longitude);
+  getLongAndLat(postcode)
+    .then((result) => {
+      const { longitude, latitude } = result;
 
-    crimeData.fetchCrimeData().then(() => {
-      displayCrimeInfo(crimeData, postcode.toUpperCase());
+      const crimeData = new CrimeData(latitude, longitude);
+
+      crimeData.fetchCrimeData().then(() => {
+        displayCrimeInfo(crimeData, postcode.toUpperCase());
+      });
     })
-  }).catch((error) => console.log(error));
-}
-
-
+    .catch((error) => console.log(error));
+};
 
 const chosenArea = document.querySelector('#info-postcode');
 const postcodeError = document.querySelector('#postcode-error');
 const postcodeForm = document.querySelector('#form-search');
-const crimeError = document.querySelector("#crime-error");
+const crimeError = document.querySelector('#crime-error');
 
 postcodeForm.addEventListener('submit', handleSubmit);

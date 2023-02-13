@@ -1,0 +1,9 @@
+Future features:
+
+- Compare safety between two postcodes
+- Add real estate data feature (first point)
+    - user looks for property in a specific area
+    - Inputs: buy or rent, price range...
+    - chooses one from the results
+    - veiws basic info and crime data of that specific property
+-
