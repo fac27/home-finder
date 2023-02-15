@@ -5,6 +5,12 @@ import { CrimeData } from './utils/getCrimeData.js';
 import { displayCrimeInfo } from './ui/displayCrimeInfo.js';
 import { getLongAndLat } from './utils/getLongAndLat.js';
 
+const crimeError = document.querySelector('#crime-error');
+
+window.onunhandledrejection = function (error) {
+  console.log(`There was a problem:\n${error}`);
+}
+
 // get postcode from from, validate it, then display basic info on the page
 const handleSubmit = (e) => {
   e.preventDefault();
@@ -28,16 +34,25 @@ const handleSubmit = (e) => {
 
       const crimeData = new CrimeData(latitude, longitude);
 
-      crimeData.fetchCrimeData().then(() => {
-        displayCrimeInfo(crimeData, postcode.toUpperCase());
+      crimeData.fetchCrimeData().then((response) => {
+        if (!response.toString().includes("Error")) {
+          displayCrimeInfo(crimeData, postcode.toUpperCase());
+        }
+        else {
+          crimeError.textContent = "Unable to fetch crime data";
+          console.error(response);
+        }
       });
+
     })
-    .catch((error) => console.log(error));
-};
+    .catch(error => {
+      console.log(error);
+      crimeError.textContent = "Unable to fetch crime data";
+    });
+}
 
 const chosenArea = document.querySelector('#info-postcode');
 const postcodeError = document.querySelector('#postcode-error');
 const postcodeForm = document.querySelector('#form-search');
-const crimeError = document.querySelector('#crime-error');
 
 postcodeForm.addEventListener('submit', handleSubmit);

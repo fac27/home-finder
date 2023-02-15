@@ -18,7 +18,6 @@ export class CrimeData {
     // Add date to query string if specified in function call
     urlWithQueryString += this.monthFrom == '' ? '' : `&date=${this.monthFrom}`;
 
-    try {
       const response = await fetch(urlWithQueryString);
 
       if (response.ok) {
@@ -26,11 +25,8 @@ export class CrimeData {
         this.createCrimeDataFromJson(crimeDataJson);
         return this;
       } else {
-        throw new Error(`Unable to fetch crime data:\n${response.status}`);
+        return new Error(`Unable to fetch crime data:\n${response.status}`);
       }
-    } catch (error) {
-      throw error;
-    }
   }
 
   createCrimeDataFromJson(crimeDataJson) {
