@@ -4,6 +4,11 @@ export const displayCrimeInfo = (crimes, postcode) => {
     // clear the output element first
     crimeInfoOutput.innerHTML = '';
 
+    if (!crimes.total) {
+        crimeInfoOutput.textContent = `No recent crime data available for '${postcode}'.`;
+        return;
+    }
+
     // Get bounding dates of crime search period (can be unspecified in CrimeData constructor)
     const monthFrom = crimes.monthFrom == "" ? crimes.crimeIncidents[0].month : crimes.monthFrom;
     const monthTo = crimes.monthTo == "" ? crimes.crimeIncidents[0].month : crimes.monthTo;
