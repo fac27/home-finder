@@ -5,5 +5,9 @@ Future features:
     - user looks for property in a specific area
     - Inputs: buy or rent, price range...
     - chooses one from the results
-    - veiws basic info and crime data of that specific property
--
+    - views basic info and crime data of that specific property
+- Fetch 12 months crime data
+    - add user info box in center of screen
+    - change getCrimeData to fetch 12 months instead of 1
+    - display progress bar of data fetch in user info box
+- 
