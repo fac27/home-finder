@@ -14,22 +14,69 @@ export class CrimeData {
   async fetchCrimeData() {
     const baseUrl = 'https://data.police.uk/api/crimes-street/all-crime';
 
-    let urlWithQueryString = `${baseUrl}?lat=${this.latitude}&lng=${this.longitude}`;
-    // Add date to query string if specified in function call
-    urlWithQueryString += this.monthFrom == '' ? '' : `&date=${this.monthFrom}`;
+    let baseUrlWithQueryString = `${baseUrl}?lat=${this.latitude}&lng=${this.longitude}`;
+    let url = "";
+    const allQueryStrings = [];
 
-      const response = await fetch(urlWithQueryString);
-
-      if (response.ok) {
-        const crimeDataJson = await response.json();
-        this.createCrimeDataFromJson(crimeDataJson);
-        return this;
-      } else {
-        return new Error(`Unable to fetch crime data:\n${response.status}`);
+    // Check if only one month is requested (or if both are not specified)
+    if ((this.monthFrom === this.monthTo) || this.monthTo === "") {
+      // Add date to query string if specified in function call
+      url = baseUrlWithQueryString + this.monthFrom == '' ? '' : `&date=${this.monthFrom}`;
+      allQueryStrings.push(url);
+    }
+    // Otherwise multiple months are requested
+    else {
+      // Split this.monthTo (e.g. 2022-12) into month and year pair and insert into object
+      let monthToObj = {
+        month: +this.monthTo.slice(-2),
+        year: +this.monthTo.slice(0, 4),
       }
+      // Do same for monthFrom. This will be used to store the current month when constructing url query string
+      let currentMonthObj = {
+        month: +this.monthFrom.slice(-2),
+        year: +this.monthFrom.slice(0, 4),
+      }
+
+      // Loop backwards from monthFrom to monthTo and generate url for each month/year pair
+      while (
+        monthToObj["month"] != currentMonthObj["month"] ||
+        monthToObj["year"] != currentMonthObj["year"]) {
+
+        let { month } = currentMonthObj;
+        let { year } = currentMonthObj;
+        let monthPadding = (month < 10) ? "0" : "";
+
+        url = baseUrlWithQueryString + `&date=${monthPadding+month}-${year}`;
+
+        allQueryStrings.push(url);
+
+        currentMonthObj = this.#getMonthBefore(month, year);
+      }
+    }
+
+    const response = await fetch(baseUrlWithQueryString);
+
+    if (response.ok) {
+      const crimeDataJson = await response.json();
+      this.#createCrimeDataFromJson(crimeDataJson);
+      return this;
+    } else {
+      return new Error(`Unable to fetch crime data:\n${response.status}`);
+    }
   }
 
-  createCrimeDataFromJson(crimeDataJson) {
+  // Private helper function to get the month before the supplied month and year and return as JS object
+  #getMonthBefore(month, year) {
+    month -= 1;
+    if (month === 0) {
+      year -= 1;
+      month = 12;
+    }
+
+    return { month: month, year: year };
+  }
+
+  #createCrimeDataFromJson(crimeDataJson) {
     crimeDataJson.forEach((item) => {
       const { category, month } = item;
       const { latitude, longitude } = item.location;
