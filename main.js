@@ -32,7 +32,7 @@ const handleSubmit = (e) => {
     .then((result) => {
       const { longitude, latitude } = result;
 
-      const crimeData = new CrimeData(latitude, longitude);
+      const crimeData = new CrimeData(latitude, longitude,"2022-10","2021-11");
 
       crimeData.fetchCrimeData().then((response) => {
         if (!response.toString().includes("Error")) {
