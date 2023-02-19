@@ -4,7 +4,7 @@
 
 export const autocompletePostcode = (postocde) => {
   return fetch(
-    `https://api.postcodes.io/postcodes/${postocde}/autocomplete?limit=20`
+    `https://api.postcodes.io/postcodes/${postocde}/autocomplete?limit=10`
   )
     .then((response) => {
       if (response.ok) {

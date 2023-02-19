@@ -1,7 +1,8 @@
 // display the postcodes returned from the autocompelete
-const infoSection = document.querySelector('.info__section');
-const infoHeader = document.querySelector('.info__header');
+const formSection = document.querySelector('.form__section');
+const postcodeError = document.querySelector('.postcode__error');
 const postcodeSearch = document.querySelector('#postcode');
+
 const postcodesContainer = document.createElement('ul');
 postcodesContainer.className = 'postcodes__container';
 
@@ -21,7 +22,7 @@ export const displayPostcodes = (postcodes) => {
     null;
   }
 
-  infoSection.insertBefore(postcodesContainer, infoHeader);
+  formSection.insertBefore(postcodesContainer, postcodeError);
 
   // fill the search with the selected postcode
   const postcodesEls = document.getElementsByClassName('postcode__element');

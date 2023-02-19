@@ -7,6 +7,13 @@ export const displayCrimeInfo = (crimes, postcode) => {
   // clear the output element first
   crimeInfoOutput.innerHTML = '';
 
+  const crimeInfoDiv = document.createElement('div');
+  crimeInfoDiv.className = 'crime__info-div';
+
+  const crimeInfoHeader = document.createElement('h3');
+  crimeInfoHeader.className = 'crime__info-header';
+  crimeInfoHeader.textContent = 'Crime statistics';
+
   if (!crimes.total) {
     crimeInfoOutput.textContent = `No recent crime data available for '${postcode}'.`;
     return;
@@ -42,8 +49,11 @@ export const displayCrimeInfo = (crimes, postcode) => {
   const barChart = document.createElement('img');
   barChart.src = barChartUrl;
 
-  crimeInfoOutput.append(crimeSummary);
-  crimeInfoOutput.append(ul);
+  crimeInfoDiv.append(crimeInfoHeader);
+  crimeInfoDiv.append(crimeSummary);
+  crimeInfoDiv.append(ul);
+
+  crimeInfoOutput.append(crimeInfoDiv);
   crimeInfoOutput.append(barChart);
   crimeInfoOutput.append(pieChart);
 };

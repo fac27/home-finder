@@ -9,15 +9,11 @@ import { displayPostcodes } from './ui/displayPostcodes.js';
 import { getNearestBuses } from './utils/getNearestTransport.js';
 import { displayTransportInfo } from './ui/displayTransportInfo.js';
 
-const crimeError = document.querySelector('#crime-error');
-const chosenArea = document.querySelector('#info-postcode');
-const postcodeError = document.querySelector('#postcode-error');
-const postcodeForm = document.querySelector('#form-search');
+const crimeError = document.querySelector('#crime__error');
+const postcodeError = document.querySelector('#postcode__error');
+const postcodeForm = document.querySelector('#form__search');
 const postcodeSearch = document.querySelector('#postcode');
-
-window.onunhandledrejection = function (error) {
-  console.log(`There was a problem:\n${error}`);
-};
+const welcomeSection = document.querySelector('.welcome__section');
 
 // get postcode from from, validate it, then display basic info on the page
 const handleSubmit = (e) => {
@@ -27,44 +23,47 @@ const handleSubmit = (e) => {
   // clear the postocode suggestions container
   document.querySelector('.postcodes__container').innerHTML = '';
 
-  validatePostcode(postcode).then((result) => {
-    if (result) {
-      postcodeError.innerHTML = '';
-      chosenArea.textContent = postcode;
-      getBasicInfo(postcode).then((data) => displayBasicInfo(data));
-    } else {
-      postcodeError.textContent = 'Please enter a valid UK postcode';
-    }
-  });
-
-  postcodeForm.reset();
-
-  getLongAndLat(postcode)
+  validatePostcode(postcode)
     .then((result) => {
-      const { longitude, latitude } = result;
+      if (result) {
+        // postcodeError.innerHTML = '';
+        welcomeSection.style.display = 'none';
 
-      const crimeData = new CrimeData(
-        latitude,
-        longitude,
-        '2022-10',
-        '2021-11'
-      );
+        getBasicInfo(postcode).then((data) => displayBasicInfo(data));
+        getNearestBuses(postcode).then((data) => displayTransportInfo(data));
+        getLongAndLat(postcode)
+          .then((result) => {
+            const { longitude, latitude } = result;
+            const crimeData = new CrimeData(
+              latitude,
+              longitude,
+              '2022-10',
+              '2021-11'
+            );
 
-      crimeData.fetchCrimeData().then((response) => {
-        if (!response.toString().includes('Error')) {
-          displayCrimeInfo(crimeData, postcode.toUpperCase());
-        } else {
-          crimeError.textContent = 'Unable to fetch crime data';
-          console.error(response);
-        }
-      });
+            crimeData.fetchCrimeData().then((response) => {
+              if (!response.toString().includes('Error')) {
+                displayCrimeInfo(crimeData, postcode.toUpperCase());
+              } else {
+                crimeError.textContent = 'Unable to fetch crime data';
+                console.error(response);
+              }
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+            crimeError.textContent = 'Unable to fetch crime data';
+          });
+      } else {
+        postcodeError.textContent = 'Please enter a valid UK postcode';
+        throw new Error("Couldn'nt fetch data!");
+      }
     })
     .catch((error) => {
       console.log(error);
-      crimeError.textContent = 'Unable to fetch crime data';
     });
 
-  getNearestBuses(postcode).then((data) => displayTransportInfo(data));
+  postcodeForm.reset();
 };
 
 // autocomplete postcode
@@ -77,6 +76,11 @@ const handleInput = (e) => {
     ? autocompletePostcode(value).then((data) => displayPostcodes(data))
     : (document.querySelector('.postcodes__container').innerHTML = '');
 };
+
+// clear error message when user starts typing new postcode
+postcodeSearch.addEventListener('click', () => {
+  postcodeError.innerHTML = '';
+});
 
 postcodeSearch.addEventListener('input', handleInput);
 postcodeForm.addEventListener('submit', handleSubmit);

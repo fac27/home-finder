@@ -1,12 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
+  scroll-behavior: smooth;
+}
+
+body {
   font-family: 'Quicksand', sans-serif;
   font-size: 18px;
+  background: #f5f5f5;
+  color: #333;
 }
 
 h1 {
@@ -26,14 +35,101 @@ h3 {
   margin-right: auto;
 }
 
-/* info section */
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.stack-s > * + * {
+  margin-top: 0.5rem;
+}
+
+.stack-m > * + * {
+  margin-top: 1.5rem;
+}
+
+.stack-xl > * + * {
+  margin-top: 4rem;
+}
+
+/* github banner */
+.github-fork-ribbon:before {
+  background: #333;
+}
+
+.github-fork-ribbon {
+  display: none;
+}
+
+/* header section */
+.header {
+  margin-top: 1rem;
+  justify-content: space-between;
+}
+
+.header h1 {
+  font-family: 'Kalam', cursive;
+}
+
+.header button {
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #344968;
+}
+
+.header button:hover {
+  color: #8e9aab;
+}
+
+/* form section */
+#form__search {
+  position: relative;
+  justify-content: flex-start;
+  gap: 0.7rem;
+}
+
+#form__search span {
+  position: absolute;
+  left: 13.5rem;
+}
+
+#form__search input {
+  padding: 0.6rem;
+  border-radius: 0.3rem;
+  border: 1px solid #bbc2cd;
+  width: 70%;
+}
+
+#form__search button {
+  padding: 0.3rem;
+  font-size: 1.1rem;
+  background: #617289;
+  color: #f5f5f5;
+  border: 1px solid #344968;
+  border-radius: 0.3rem;
+}
+
 /* autocompleted postcodes */
 .postcodes__container {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
   list-style: none;
   padding: 0;
-  border: 1px solid red;
-  width: 30%;
-  margin-top: -0.8rem;
+  background: #d2d7dd;
+  color: #000;
+  width: 35%;
   border-radius: 0.3rem;
 }
 
@@ -42,11 +138,78 @@ h3 {
 }
 
 .postcodes__container li:hover {
-  background-color: aqua;
+  background-color: #e8ebee;
+}
+
+#postcode__error {
+  background: maroon;
+  color: #fff;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+/* info section */
+/* basic info */
+#output__info {
+  border-radius: 0.4rem;
+  gap: 1rem;
+  background: #e8ebee;
+  padding: 0.5rem;
+  visibility: hidden;
+  box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.3);
+  align-items: flex-start;
+}
+
+#output__info img {
+  width: 100%;
+  border-radius: 0.3rem;
+}
+
+.basic__info-div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* transport info */
+.buses__div {
+  margin-top: 2rem;
+  border-radius: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: #e8ebee;
+  padding: 0.5rem;
+  box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* crime info */
+.crime__info-div {
+  margin-top: 2rem;
+  border-radius: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: #e8ebee;
+  padding: 0.5rem;
+  box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.3);
+}
+
+.crime__info-div ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+#output__crime img {
+  width: 100%;
+  margin-top: 2rem;
 }
 
 /* progress bar */
-#app-info-container {
+#app__info-container {
   z-index: 1;
   display: flex;
   align-items: center;
@@ -63,40 +226,26 @@ h3 {
   display: none;
 }
 
-#app-info {
+#app__info {
   padding: 1.1rem;
   text-align: center;
 }
 
-/*
-Set all 'width-<size>' CSS classes to 90% of viewport width by default
-e.g. .width-small, .width-medium, .width-large ...
-*/
+/* Set all 'width-<size>' CSS classes to 90% of viewport width by default
+e.g. .width-small, .width-medium, .width-large ... */
 [class*='width-'] {
   max-width: 90vw;
 }
 
-/* form */
-#form-search label {
-  display: block;
+/* footer */
+footer {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  text-align: center;
 }
 
-#postcode-error {
-  display: inline-block;
-  margin-top: 1rem;
-  background: maroon;
-  color: #fff;
-}
-
-/* generated basic info section */
-.basic__info img {
-  width: 80%;
-}
-
-/*
-Override screen width mobile-first settings for larger viewports
-*/
-@media only screen and (min-width: 768px) {
+/* Override screen width mobile-first settings for larger viewports */
+@media only screen and (min-width: 821px) {
   .width-small {
     max-width: 20rem;
   }
@@ -106,6 +255,60 @@ Override screen width mobile-first settings for larger viewports
   }
 
   .width-large {
-    max-width: 50rem;
+    max-width: 60rem;
+  }
+
+  .github-fork-ribbon {
+    display: block;
+  }
+
+  /* form section */
+  #form__search {
+    justify-content: center;
+  }
+
+  #form__search input {
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  #form__search button {
+    padding: 0.7rem 0.9rem;
+  }
+
+  #form__search span {
+    left: 43rem;
+  }
+
+  /* autocomplete postcodes section */
+  .postcodes__container {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* welcome section */
+  .welcome__section {
+    text-align: center;
+  }
+
+  .welcome__section p {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.3rem;
+  }
+
+  /* output info section */
+  #output__info {
+    flex-direction: row;
+  }
+
+  #output__info img {
+    width: 50%;
+  }
+
+  .basic__info-div {
+    gap: 1.5rem;
   }
 }

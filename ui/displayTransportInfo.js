@@ -8,12 +8,13 @@ export const displayTransportInfo = (buses) => {
   const busesDivHeader = document.createElement('h3');
   busesDivHeader.className = 'buses__div-header';
   busesDivHeader.textContent = 'Nearest bus stops';
+  busesDiv.append(busesDivHeader);
 
   for (let busStop of buses) {
     const busStopName = document.createElement('p');
     busStopName.textContent = `${busStop.commonName}  Stop: ${
       busStop.indicator
-    }   Distance: ${Math.round(busStop.distance)}`;
+    }   Distance: ${Math.round(busStop.distance)}m`;
 
     const busesNames = document.createElement('p');
     busesNames.textContent = 'Buses:';
