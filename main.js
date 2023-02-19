@@ -6,6 +6,8 @@ import { displayCrimeInfo } from './ui/displayCrimeInfo.js';
 import { getLongAndLat } from './utils/getLongAndLat.js';
 import { autocompletePostcode } from './utils/autocompletePostcode.js';
 import { displayPostcodes } from './ui/displayPostcodes.js';
+import { getNearestBuses } from './utils/getNearestTransport.js';
+import { displayTransportInfo } from './ui/displayTransportInfo.js';
 
 const crimeError = document.querySelector('#crime-error');
 const chosenArea = document.querySelector('#info-postcode');
@@ -61,6 +63,8 @@ const handleSubmit = (e) => {
       console.log(error);
       crimeError.textContent = 'Unable to fetch crime data';
     });
+
+  getNearestBuses(postcode).then((data) => displayTransportInfo(data));
 };
 
 // autocomplete postcode
