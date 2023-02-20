@@ -10,18 +10,43 @@
     <meta name="keywords"
         content="moving home, crime, statistics, local, facilities, restaurants, UK, search, postcode">
 
+    <!-- ICONSCOUT CDN -->
+    <link rel="stylesheet"
+        href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- fork on github banner -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="./styles.css">
     <title>Home Finder UK - Find the perfect postcode for your next move</title>
 </head>
 
-<body class="width-large center">
+<body class="width-large center stack-xl">
 
-    <header>
-        <h1>Home Finder UK!</h1>
+    <a class="github-fork-ribbon" href="https://github.com/fac27/home-finder"
+        data-ribbon="Star me on GitHub" title="Star me on GitHub">Star me on GitHub</a>
+
+    <header class="header flex">
+        <button class="home__icon"><i class="uil uil-estate"></i></button>
+        <h1>Home Finder</h1>
+        <button class="mode__switch"><i class="uil uil-moon"></i></button>
     </header>
 
-    <main>
-        <section>
+    <main class="stack-m">
+        <section class="form__section">
+            <form class="flex" id="form__search">
+                <span><i class="uil uil-search"></i></span>
+                <input type="text" id="postcode" name="postcode"
+                    placeholder="enter a UK postcode" required>
+                <button type="submit" id="submit">Submit</button>
+            </form>
+
+            <span id="postcode__error"></span>
+        </section>
+
+        <section class="welcome__section stack-m">
             <h2>Welcome to Home Finder UK!</h2>
             <p>
                 Home Finder UK is your one-stop shop for choosing where to make your next
@@ -35,56 +60,34 @@
         </section>
 
 
-        <section>
-            <h2>Tell us where you want to find out about</h2>
-            <p>
-                Complete the form to below to tell us the area you want to find out about.
-            </p>
-            <div id="container-form-search">
-                <form id="form-search">
-                    <label for="postcode">Enter UK postcode:</label>
-                    <input type="text" id="postcode" name="postcode" required>
-                    <!-- <input type="submit" value="Submit" id="submit"> -->
-                    <button type="submit" id="submit">Submit</button>
-                </form>
-
-                <span id="postcode-error"></span>
-            </div>
-        </section>
-
-
         <section class="info__section">
-            <h2 class="info__header">Useful information about <span
-                    id="info-postcode">your chosen area</span>
-            </h2>
-
             <article class="basic__info">
-                <h3>Basic data</h3>
-                <output id="output__info">
+                <output class="flex column" id="output__info">
                 </output>
             </article>
 
             <article class="transport__info">
-                <h3>Transport data</h3>
                 <output id="output__transport">
                 </output>
             </article>
 
             <article class="crime__info">
-                <h3>Crime data</h3>
-                <span id="crime-error"></span>
+                <span id="crime__error"></span>
                 <output id="output__crime">
                 </output>
             </article>
         </section>
 
-        <div id="app-info-container">
-            <aside id="app-info"></aside>
+        <div id="app__info-container">
+            <aside id="app__info"></aside>
         </div>
     </main>
 
 
-    <footer></footer>
+    <footer class="center stack-s">
+        <p>Project by Mark &amp; Zakarie</p>
+        <small>All rights reserved &copy; 2023. FAC Skills Bootcamp</small>
+    </footer>
 
     <script src="./main.js" type="module"></script>
 </body>

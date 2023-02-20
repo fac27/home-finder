@@ -62,8 +62,8 @@ export class CrimeData {
     let totalFetches = allQueryStrings.length;
 
     // Set up references for progress bar and info message to user during fetch
-    const userInfoContainer = document.querySelector('#app-info-container');
-    const userInfo = document.querySelector('#app-info');
+    const userInfoContainer = document.querySelector('#app__info-container');
+    const userInfo = document.querySelector('#app__info');
     const p = document.createElement('p');
     p.textContent = 'Fetching crime data (0%)';
     const progressBar = document.createElement('progress');

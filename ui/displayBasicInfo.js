@@ -5,6 +5,14 @@ const basicInfoOutput = document.querySelector('#output__info');
 export const displayBasicInfo = (info) => {
   // clear the output element first
   basicInfoOutput.innerHTML = '';
+  basicInfoOutput.style.visibility = 'visible';
+
+  const basicInfoDiv = document.createElement('div');
+  basicInfoDiv.className = 'basic__info-div';
+
+  const basicInfoHeader = document.createElement('h3');
+  basicInfoHeader.className = 'basic__info-header';
+  basicInfoHeader.textContent = 'Basic information';
 
   const postcodeImg = document.createElement('img');
   postcodeImg.src = getPostcodeMap(info.postcode);
@@ -24,17 +32,16 @@ export const displayBasicInfo = (info) => {
   const primaryCareTrust = document.createElement('p');
   primaryCareTrust.textContent = `Primary Care Trust: ${info.primary_care_trust}`;
 
-  const clinicalComissionGroup = document.createElement('p');
-  clinicalComissionGroup.textContent = `Clinical Comission Group: ${info.ccg}`;
-
   const policeForce = document.createElement('p');
   policeForce.textContent = `Police Force: ${info.pfa}`;
 
+  basicInfoDiv.append(locationInfo);
+  basicInfoDiv.append(dateOfIntroduction);
+  basicInfoDiv.append(parliamentaryConstituency);
+  basicInfoDiv.append(primaryCareTrust);
+  basicInfoDiv.append(policeForce);
+
+  // basicInfoOutput.append(basicInfoHeader);
   basicInfoOutput.append(postcodeImg);
-  basicInfoOutput.append(locationInfo);
-  basicInfoOutput.append(dateOfIntroduction);
-  basicInfoOutput.append(parliamentaryConstituency);
-  basicInfoOutput.append(primaryCareTrust);
-  basicInfoOutput.append(clinicalComissionGroup);
-  basicInfoOutput.append(policeForce);
+  basicInfoOutput.append(basicInfoDiv);
 };
