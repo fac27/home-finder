@@ -8,6 +8,7 @@ import { autocompletePostcode } from './utils/autocompletePostcode.js';
 import { displayPostcodes } from './ui/displayPostcodes.js';
 import { getNearestBuses } from './utils/getNearestTransport.js';
 import { displayTransportInfo } from './ui/displayTransportInfo.js';
+import { convertToMonthName } from './utils/convertToMonthName.js';
 
 const crimeError = document.querySelector('#crime__error');
 const postcodeError = document.querySelector('#postcode__error');
@@ -20,7 +21,7 @@ const handleSubmit = (e) => {
   e.preventDefault();
   const postcode = e.target.children[1].value;
 
-  // clear the postocode suggestions container
+  // clear the postcode suggestions container
   document.querySelector('.postcodes__container').innerHTML = '';
 
   validatePostcode(postcode)
@@ -31,14 +32,50 @@ const handleSubmit = (e) => {
 
         getBasicInfo(postcode).then((data) => displayBasicInfo(data));
         getNearestBuses(postcode).then((data) => displayTransportInfo(data));
+
+        const date = new Date();
+        const currentMonth = date.getMonth() + 1; // Get zero based month from current date object and add one to it
+        const currentYear = date.getFullYear();
+
+        // Set monthFrom to two months before the current month
+        const monthFrom = CrimeData.getMonthsBefore(currentMonth, currentYear, 2);
+        // Get 12 months before monthFrom
+        const monthTo = CrimeData.getMonthsBefore(monthFrom.month, monthFrom.year, 12);
+
+        // Set up month name array for chart titles
+        // REFACTORING: This duplicates functionality in convertToMonthName function which only accepts '2023-02' style strings
+        const monthNames = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec"
+        ];
+        const dateRangeString =
+          'from ' + monthNames[monthTo.month - 1] + '-' + monthTo.year +
+          ' to ' + monthNames[monthFrom.month - 1] + '-' + monthFrom.year;
+
+        const barChartTitle = `Total crimes by month for ${postcode.toUpperCase()} ${dateRangeString}`;
+        const pieChartTitle = `Crime incident types for ${postcode.toUpperCase()} ${dateRangeString}`;
+
+        console.log(barChartTitle + "\n" + pieChartTitle);
+
         getLongAndLat(postcode)
           .then((result) => {
             const { longitude, latitude } = result;
             const crimeData = new CrimeData(
               latitude,
               longitude,
-              '2022-10',
-              '2021-11'
+              // Zero pad single digit months in monthFrom and monthTo and build 2023-02 style string
+              `${monthFrom.year}-${(monthFrom.month < 10) ? ' ' + monthFrom.month : monthFrom.month}`,
+              `${monthTo.year}-${(monthTo.month < 10) ? ' ' + monthTo.month : monthTo.month}`,
             );
 
             crimeData.fetchCrimeData().then((response) => {
@@ -56,7 +93,7 @@ const handleSubmit = (e) => {
           });
       } else {
         postcodeError.textContent = 'Please enter a valid UK postcode';
-        throw new Error("Couldn'nt fetch data!");
+        throw new Error("Couldn't fetch data!");
       }
     })
     .catch((error) => {

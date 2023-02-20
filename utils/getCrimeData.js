@@ -53,7 +53,7 @@ export class CrimeData {
 
         allQueryStrings.push(url);
 
-        currentMonthObj = this.#getMonthBefore(month, year);
+        currentMonthObj = CrimeData.getMonthsBefore(month, year);
       }
     }
 
@@ -109,14 +109,19 @@ export class CrimeData {
   }
 
   // Private helper function to get the month before the supplied month and year and return as JS object
-  #getMonthBefore(month, year) {
-    month -= 1;
-    if (month === 0) {
-      year -= 1;
-      month = 12;
+  static getMonthsBefore(month, year, monthsToSubtract = 1) {
+    const yearsToSubtract = Math.floor(monthsToSubtract / 12);
+    monthsToSubtract -= yearsToSubtract * 12;
+
+    let monthSubtracted = month - monthsToSubtract;
+    let yearSubtracted = year - yearsToSubtract;
+
+    if (monthSubtracted <= 0) {
+      yearSubtracted -= 1;
+      monthSubtracted += 12;
     }
 
-    return { month: month, year: year };
+    return { month: monthSubtracted, year: yearSubtracted };
   }
 
   #createCrimeDataFromJson(crimeDataJson) {
