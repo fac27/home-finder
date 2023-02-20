@@ -2,16 +2,18 @@
 Find your next perfect home!
 
 ## Project Intro
-The goal of this application is to query two APIs, the UK Postcode API and the Police API, to get information about a specific postcode.<br />
-It then gathers crime statistics in that neighbourhood and displays it in a user-friendly manner, allowing the user <br />
-the ability to analyze data and make an informed decsision. They can also search, filter or sort the data that is being displayed.<br />
+The goal of this application is to query a number of APIs in order to find information about a specific area in the UK that might be useful to somebody who may be considering moving home to that area. This information is then appropriately summarised and presented to the user both visually and as text.
+
+The APIs utilised in this project are as follows:
+* [Postcode & Geolocation API for the UK](https://postcodes.io/)
+* [Police data API](https://data.police.uk/docs/)
+* [QuickChart API](https://quickchart.io/)
+* [Transport for London API](https://api.tfl.gov.uk/)
 
 ## Technologies Used
 - HTML
 - CSS
 - Javascript
-- [UK Postcode API](https://postcodes.io/)
-- [Police API](https://data.police.uk/docs/)
 
 ## How to Run it Locally
 - Clone the repository by running this command on your terminal
@@ -22,17 +24,17 @@ the ability to analyze data and make an informed decsision. They can also search
   - You can also run the Index.html file through your browser if needed
 
 ## User Stories
-- [ ] See an interesting mashup of different data
-- [ ] Input information to change the displayed result
-- [ ] View the app on all of my devices
-- [ ] Display some kind of indication that the data is loading
+- [x] See an interesting mashup of different data
+- [x] Input information to change the displayed result
+- [x] View the app on all of my devices
+- [x] Display some kind of indication that the data is loading
 - [ ] Display clear messages if something goes wrong
 
 ## Acceptance Criteria
-- [ ] Query at least two APIs using fetch
-- [ ] Dynamic content generated with JS
+- [x] Query at least two APIs using fetch
+- [x] Dynamic content generated with JS
 - [ ] A clearly defined user journey, documented in your readme
-- [ ] A responsive, mobile-first design
+- [x] A responsive, mobile-first design
 - [ ] Ensure your app is accessible to as many different users as possible
 
 ## Learning Outcomes
@@ -40,23 +42,23 @@ This is the second project of Founders and Coders' Skills Bootcamp Cohort 27. Th
 is fulfilling the learning outcomes below:
 
 ### JavaScript
-- [ ] Write code that executes asynchronously
-- [ ] Use callbacks to access values that aren’t available synchronously
-- [ ] Use promises to access values that aren’t available synchronously
-- [ ] Use the fetch method to make HTTP requests and receive responses
-- [ ] Configure the options argument of the fetch method to make GET and POST requests
-- [ ] Use the map array method to create a new array containing new values
+- [x] Write code that executes asynchronously
+- [x] Use callbacks to access values that aren’t available synchronously
+- [x] Use promises to access values that aren’t available synchronously
+- [x] Use the fetch method to make HTTP requests and receive responses
+- [x] Configure the options argument of the fetch method to make GET and POST requests
+- [x] Use the map array method to create a new array containing new values
 - [ ] Use the filter array method to create a new array with certain values removed
 
 ### DOM
-- [ ] Access DOM nodes using a variety of selectors
-- [ ] Add and remove DOM nodes to change the content on the page
-- [ ] Toggle the classes applied to DOM nodes to change their CSS properties
+- [x] Access DOM nodes using a variety of selectors
+- [x] Add and remove DOM nodes to change the content on the page
+- [x] Toggle the classes applied to DOM nodes to change their CSS properties
 
 ### Design
-- [ ] Use consistent layout and spacing
-- [ ] Follow a spacing guideline to give our app a consistent feel
+- [x] Use consistent layout and spacing
+- [x] Follow a spacing guideline to give our app a consistent feel
 
 ### Developer Toolkit
-- [ ] Debug client side JS in our web browser
-- [ ] Use console.log() to help us debug our code
+- [x] Debug client side JS in our web browser
+- [x] Use console.log() to help us debug our code
