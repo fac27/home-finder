@@ -19,7 +19,9 @@ export const convertToMonthName = (monthNumber) => {
 
   // check if month has leading zero or not. if it has, remove it, then get the
   // corresponding month from the object
-  return month.startsWith('0')
+  let returnValue = month.startsWith('0')
     ? `${monthNames[month.slice(1)]} ${year}`
     : `${monthNames[month]} ${year}`;
-};
+
+  return returnValue;
+}

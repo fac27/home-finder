@@ -11,7 +11,7 @@ export const createBarChart = (crimes) => {
 
   const labels = `'${crimeSummaryByMonthName.reverse().join("','")}'`;
   const data = Object.values(crimeSummaryByMonth).reverse().join(',');
-  const barChartUrl = `https://quickchart.io/chart?c={type:'bar',data:{labels:[${labels}],datasets:[{label:'Crimes',data:[${data}]}]},options:{title:{display:true,text:'Total crimes by month from 2021/12 to 2022/10'}} }`;
+  const barChartUrl = `https://quickchart.io/chart?c={type:'bar',data:{labels:[${labels}],datasets:[{label:'Crimes',data:[${data}]}]},options:{title:{display:false}} }`;
 
   return barChartUrl;
 };

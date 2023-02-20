@@ -8,6 +8,7 @@ import { autocompletePostcode } from './utils/autocompletePostcode.js';
 import { displayPostcodes } from './ui/displayPostcodes.js';
 import { getNearestBuses } from './utils/getNearestTransport.js';
 import { displayTransportInfo } from './ui/displayTransportInfo.js';
+import { convertToMonthName } from './utils/convertToMonthName.js';
 
 const crimeError = document.querySelector('#crime__error');
 const postcodeError = document.querySelector('#postcode__error');
@@ -39,7 +40,32 @@ const handleSubmit = (e) => {
         // Set monthFrom to two months before the current month
         const monthFrom = CrimeData.getMonthsBefore(currentMonth, currentYear, 2);
         // Get 12 months before monthFrom
-        const monthTo = CrimeData.getMonthsBefore(monthFrom.month, monthFrom.year, 12)
+        const monthTo = CrimeData.getMonthsBefore(monthFrom.month, monthFrom.year, 12);
+
+        // Set up month name array for chart titles
+        // REFACTORING: This duplicates functionality in convertToMonthName function which only accepts '2023-02' style strings
+        const monthNames = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec"
+        ];
+        const dateRangeString =
+          'from ' + monthNames[monthTo.month - 1] + '-' + monthTo.year +
+          ' to ' + monthNames[monthFrom.month - 1] + '-' + monthFrom.year;
+
+        const barChartTitle = `Total crimes by month for ${postcode.toUpperCase()} ${dateRangeString}`;
+        const pieChartTitle = `Crime incident types for ${postcode.toUpperCase()} ${dateRangeString}`;
+
+        console.log(barChartTitle + "\n" + pieChartTitle);
 
         getLongAndLat(postcode)
           .then((result) => {
