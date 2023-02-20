@@ -20,7 +20,7 @@ const handleSubmit = (e) => {
   e.preventDefault();
   const postcode = e.target.children[1].value;
 
-  // clear the postocode suggestions container
+  // clear the postcode suggestions container
   document.querySelector('.postcodes__container').innerHTML = '';
 
   validatePostcode(postcode)
@@ -31,14 +31,25 @@ const handleSubmit = (e) => {
 
         getBasicInfo(postcode).then((data) => displayBasicInfo(data));
         getNearestBuses(postcode).then((data) => displayTransportInfo(data));
+
+        const date = new Date();
+        const currentMonth = date.getMonth() + 1; // Get zero based month from current date object and add one to it
+        const currentYear = date.getFullYear();
+
+        // Set monthFrom to two months before the current month
+        const monthFrom = CrimeData.getMonthsBefore(currentMonth, currentYear, 2);
+        // Get 12 months before monthFrom
+        const monthTo = CrimeData.getMonthsBefore(monthFrom.month, monthFrom.year, 12)
+
         getLongAndLat(postcode)
           .then((result) => {
             const { longitude, latitude } = result;
             const crimeData = new CrimeData(
               latitude,
               longitude,
-              '2022-10',
-              '2021-11'
+              // Zero pad single digit months in monthFrom and monthTo and build 2023-02 style string
+              `${monthFrom.year}-${(monthFrom.month < 10) ? ' ' + monthFrom.month : monthFrom.month}`,
+              `${monthTo.year}-${(monthTo.month < 10) ? ' ' + monthTo.month : monthTo.month}`,
             );
 
             crimeData.fetchCrimeData().then((response) => {
@@ -56,7 +67,7 @@ const handleSubmit = (e) => {
           });
       } else {
         postcodeError.textContent = 'Please enter a valid UK postcode';
-        throw new Error("Couldn'nt fetch data!");
+        throw new Error("Couldn't fetch data!");
       }
     })
     .catch((error) => {
