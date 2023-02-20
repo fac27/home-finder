@@ -1,5 +1,6 @@
 import { createPieChart } from '../utils/createPieChart.js';
 import { createBarChart } from '../utils/createBarChart.js';
+import { convertToMonthName } from '../utils/convertToMonthName.js';
 
 const crimeInfoOutput = document.querySelector('#output__crime');
 
@@ -33,13 +34,31 @@ export const displayCrimeInfo = (crimes, postcode) => {
 
   for (let category in crimeSummaryByCategory) {
     const li = document.createElement('li');
-    li.textContent = `${category}: ${
-      crimeSummaryByCategory[category]
-    } (${Math.floor(
-      (crimeSummaryByCategory[category] / crimes.total) * 100
-    )}%)`;
+    li.textContent = `${category}: ${crimeSummaryByCategory[category]
+      } (${Math.floor(
+        (crimeSummaryByCategory[category] / crimes.total) * 100
+      )}%)`;
     ul.appendChild(li);
   }
+
+  // Set up month name array for chart titles
+
+  const dateRangeString =
+    'from ' + convertToMonthName(crimes.monthTo) +
+    ' to ' + convertToMonthName(crimes.monthFrom);
+
+  const barChartTitle = `Total crimes by month for ${postcode.toUpperCase()} ${dateRangeString}`;
+  const pieChartTitle = `Crime incident types for ${postcode.toUpperCase()} ${dateRangeString}`;
+
+  const pieChartHeading = document.createElement('H3');
+  pieChartHeading.textContent = pieChartTitle;
+  const barChartHeading = document.createElement('H3');
+  barChartHeading.textContent = barChartTitle;
+
+  pieChartHeading.classList.add('text-center');
+  pieChartHeading.classList.add('text-pad-above');
+  barChartHeading.classList.add('text-center');
+  barChartHeading.classList.add('text-pad-above');
 
   const pieChartUrl = createPieChart(crimes);
   const barChartUrl = createBarChart(crimes);
@@ -54,6 +73,8 @@ export const displayCrimeInfo = (crimes, postcode) => {
   crimeInfoDiv.append(ul);
 
   crimeInfoOutput.append(crimeInfoDiv);
+  crimeInfoOutput.append(barChartHeading);
   crimeInfoOutput.append(barChart);
+  crimeInfoOutput.append(pieChartHeading);
   crimeInfoOutput.append(pieChart);
 };
