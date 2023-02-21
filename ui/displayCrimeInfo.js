@@ -1,5 +1,5 @@
 import { createPieChart, getPieChartDescription } from '../utils/createPieChart.js';
-import { createBarChart } from '../utils/createBarChart.js';
+import { createBarChart, getBarChartDescription } from '../utils/createBarChart.js';
 import { convertToMonthName } from '../utils/convertToMonthName.js';
 
 const crimeInfoOutput = document.querySelector('#output__crime');
@@ -64,6 +64,7 @@ export const displayCrimeInfo = (crimes, postcode) => {
   const barChartDescription = document.createElement('p');
   barChartDescription.id = 'bar-desc';
   barChartDescription.className = 'screen-reader-only';
+  barChartDescription.innerText = getBarChartDescription(crimes);
 
   pieChartHeading.classList.add('text-center');
   pieChartHeading.classList.add('text-pad-above');
