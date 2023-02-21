@@ -15,6 +15,7 @@ const postcodeError = document.querySelector('#postcode__error');
 const postcodeForm = document.querySelector('#form__search');
 const postcodeSearch = document.querySelector('#postcode');
 const welcomeSection = document.querySelector('.welcome__section');
+const crimeChartOverlay = document.querySelector('#crime__chart--large');
 
 // get postcode from from, validate it, then display basic info on the page
 const handleSubmit = (e) => {
@@ -41,31 +42,6 @@ const handleSubmit = (e) => {
         const monthFrom = CrimeData.getMonthsBefore(currentMonth, currentYear, 2);
         // Get 12 months before monthFrom
         const monthTo = CrimeData.getMonthsBefore(monthFrom.month, monthFrom.year, 12);
-
-        // Set up month name array for chart titles
-        // REFACTORING: This duplicates functionality in convertToMonthName function which only accepts '2023-02' style strings
-        const monthNames = [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec"
-        ];
-        const dateRangeString =
-          'from ' + monthNames[monthTo.month - 1] + '-' + monthTo.year +
-          ' to ' + monthNames[monthFrom.month - 1] + '-' + monthFrom.year;
-
-        const barChartTitle = `Total crimes by month for ${postcode.toUpperCase()} ${dateRangeString}`;
-        const pieChartTitle = `Crime incident types for ${postcode.toUpperCase()} ${dateRangeString}`;
-
-        console.log(barChartTitle + "\n" + pieChartTitle);
 
         getLongAndLat(postcode)
           .then((result) => {

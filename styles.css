@@ -56,15 +56,15 @@ h3 {
   flex-direction: column;
 }
 
-.stack-s > * + * {
+.stack-s>*+* {
   margin-top: 0.5rem;
 }
 
-.stack-m > * + * {
+.stack-m>*+* {
   margin-top: 1.5rem;
 }
 
-.stack-xl > * + * {
+.stack-xl>*+* {
   margin-top: 4rem;
 }
 
@@ -237,6 +237,30 @@ h3 {
 #app__info {
   padding: 1.1rem;
   text-align: center;
+}
+
+#crime__chart--large {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: contain;
+  background-repeat: no-repeat no-repeat;
+  background-position: center center;
+  background-color: #fff;
+  cursor: zoom-out;
+}
+
+.screen-reader-only {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 /* Set all 'width-<size>' CSS classes to 90% of viewport width by default

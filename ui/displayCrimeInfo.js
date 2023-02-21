@@ -1,8 +1,10 @@
-import { createPieChart } from '../utils/createPieChart.js';
-import { createBarChart } from '../utils/createBarChart.js';
+import { createPieChart, getPieChartDescription } from '../utils/createPieChart.js';
+import { createBarChart, getBarChartDescription } from '../utils/createBarChart.js';
 import { convertToMonthName } from '../utils/convertToMonthName.js';
 
 const crimeInfoOutput = document.querySelector('#output__crime');
+const crimeChartOverlay = document.querySelector('#crime__chart--large');
+crimeChartOverlay.addEventListener('mouseup', () => {crimeChartOverlay.style.display='none';}, false);
 
 export const displayCrimeInfo = (crimes, postcode) => {
   // clear the output element first
@@ -54,6 +56,15 @@ export const displayCrimeInfo = (crimes, postcode) => {
   pieChartHeading.textContent = pieChartTitle;
   const barChartHeading = document.createElement('H3');
   barChartHeading.textContent = barChartTitle;
+  const pieChartDescription = document.createElement('p');
+  pieChartDescription.id = 'pie-desc';
+  pieChartDescription.className = 'screen-reader-only';
+  pieChartDescription.innerText = getPieChartDescription(crimes);
+
+  const barChartDescription = document.createElement('p');
+  barChartDescription.id = 'bar-desc';
+  barChartDescription.className = 'screen-reader-only';
+  barChartDescription.innerText = getBarChartDescription(crimes);
 
   pieChartHeading.classList.add('text-center');
   pieChartHeading.classList.add('text-pad-above');
@@ -65,8 +76,18 @@ export const displayCrimeInfo = (crimes, postcode) => {
 
   const pieChart = document.createElement('img');
   pieChart.src = pieChartUrl;
+  pieChart.alt = `Pie chart showing ${pieChartTitle}`;
+  pieChart.setAttribute('aria-details', 'pie-desc');
+  
   const barChart = document.createElement('img');
   barChart.src = barChartUrl;
+  barChart.alt = `Bar chart showing ${barChartTitle}`;
+  barChart.setAttribute('aria-details', 'bar-desc');
+
+  pieChart.style.cursor = barChart.style.cursor = 'zoom-in';
+  pieChart.addEventListener('mouseup', () => {toggleChartToFullScreen(pieChart);}, false);
+  barChart.addEventListener('mouseup', () => {toggleChartToFullScreen(barChart);}, false);
+
 
   crimeInfoDiv.append(crimeInfoHeader);
   crimeInfoDiv.append(crimeSummary);
@@ -75,6 +96,13 @@ export const displayCrimeInfo = (crimes, postcode) => {
   crimeInfoOutput.append(crimeInfoDiv);
   crimeInfoOutput.append(barChartHeading);
   crimeInfoOutput.append(barChart);
+  crimeInfoOutput.append(barChartDescription);
   crimeInfoOutput.append(pieChartHeading);
   crimeInfoOutput.append(pieChart);
-};
+  crimeInfoOutput.append(pieChartDescription);
+}
+
+function toggleChartToFullScreen(image) {
+  crimeChartOverlay.style.backgroundImage = 'url(' + image.src + ')';
+  crimeChartOverlay.style.display = 'block';
+}
