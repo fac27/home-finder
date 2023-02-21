@@ -15,6 +15,7 @@ const postcodeError = document.querySelector('#postcode__error');
 const postcodeForm = document.querySelector('#form__search');
 const postcodeSearch = document.querySelector('#postcode');
 const welcomeSection = document.querySelector('.welcome__section');
+const crimeChartOverlay = document.querySelector('#crime__chart--large');
 
 // get postcode from from, validate it, then display basic info on the page
 const handleSubmit = (e) => {
