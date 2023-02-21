@@ -42,31 +42,6 @@ const handleSubmit = (e) => {
         // Get 12 months before monthFrom
         const monthTo = CrimeData.getMonthsBefore(monthFrom.month, monthFrom.year, 12);
 
-        // Set up month name array for chart titles
-        // REFACTORING: This duplicates functionality in convertToMonthName function which only accepts '2023-02' style strings
-        const monthNames = [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec"
-        ];
-        const dateRangeString =
-          'from ' + monthNames[monthTo.month - 1] + '-' + monthTo.year +
-          ' to ' + monthNames[monthFrom.month - 1] + '-' + monthFrom.year;
-
-        const barChartTitle = `Total crimes by month for ${postcode.toUpperCase()} ${dateRangeString}`;
-        const pieChartTitle = `Crime incident types for ${postcode.toUpperCase()} ${dateRangeString}`;
-
-        console.log(barChartTitle + "\n" + pieChartTitle);
-
         getLongAndLat(postcode)
           .then((result) => {
             const { longitude, latitude } = result;
