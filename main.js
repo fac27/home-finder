@@ -8,14 +8,12 @@ import { autocompletePostcode } from './utils/autocompletePostcode.js';
 import { displayPostcodes } from './ui/displayPostcodes.js';
 import { getNearestBuses } from './utils/getNearestTransport.js';
 import { displayTransportInfo } from './ui/displayTransportInfo.js';
-import { convertToMonthName } from './utils/convertToMonthName.js';
 
 const crimeError = document.querySelector('#crime__error');
 const postcodeError = document.querySelector('#postcode__error');
 const postcodeForm = document.querySelector('#form__search');
 const postcodeSearch = document.querySelector('#postcode');
 const welcomeSection = document.querySelector('.welcome__section');
-const crimeChartOverlay = document.querySelector('#crime__chart--large');
 
 // get postcode from from, validate it, then display basic info on the page
 const handleSubmit = (e) => {
@@ -39,10 +37,17 @@ const handleSubmit = (e) => {
         const currentYear = date.getFullYear();
 
         // Set monthFrom to two months before the current month
-        const monthFrom = CrimeData.getMonthsBefore(currentMonth, currentYear, 2);
+        const monthFrom = CrimeData.getMonthsBefore(
+          currentMonth,
+          currentYear,
+          2
+        );
         // Get 12 months before monthFrom
-        const monthTo = CrimeData.getMonthsBefore(monthFrom.month, monthFrom.year, 2);
-
+        const monthTo = CrimeData.getMonthsBefore(
+          monthFrom.month,
+          monthFrom.year,
+          12
+        );
         getLongAndLat(postcode)
           .then((result) => {
             const { longitude, latitude } = result;
@@ -50,8 +55,12 @@ const handleSubmit = (e) => {
               latitude,
               longitude,
               // Zero pad single digit months in monthFrom and monthTo and build 2023-02 style string
-              `${monthFrom.year}-${(monthFrom.month < 10) ? ' ' + monthFrom.month : monthFrom.month}`,
-              `${monthTo.year}-${(monthTo.month < 10) ? ' ' + monthTo.month : monthTo.month}`,
+              `${monthFrom.year}-${
+                monthFrom.month < 10 ? ' ' + monthFrom.month : monthFrom.month
+              }`,
+              `${monthTo.year}-${
+                monthTo.month < 10 ? ' ' + monthTo.month : monthTo.month
+              }`
             );
 
             crimeData.fetchCrimeData().then((response) => {

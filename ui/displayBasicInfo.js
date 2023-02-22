@@ -10,6 +10,9 @@ export const displayBasicInfo = (info) => {
   const basicInfoDiv = document.createElement('div');
   basicInfoDiv.className = 'basic__info-div';
 
+  const basicInfoDetails = document.createElement('div');
+  basicInfoDetails.className = 'basic__info-details';
+
   const basicInfoHeader = document.createElement('h3');
   basicInfoHeader.className = 'basic__info-header';
   basicInfoHeader.textContent = 'Basic information';
@@ -19,29 +22,77 @@ export const displayBasicInfo = (info) => {
   postcodeImg.alt = 'Map image of the postcode';
 
   const locationInfo = document.createElement('p');
-  locationInfo.textContent = `Location: ${info.country}, ${info.region}, ${info.admin_district}, ${info.admin_ward}, ${info.postcode}`;
+  locationInfo.textContent = `${info.country}, ${info.region}, ${info.admin_district}, ${info.admin_ward}, ${info.postcode}`;
+  const locationInfoSpan = document.createElement('span');
+  locationInfoSpan.textContent = 'Location: ';
+  locationInfo.insertAdjacentElement('afterbegin', locationInfoSpan);
 
   // prettier-ignore
   const dashedDateOfIntroduction = `${info.date_of_introduction.slice(0, 4)}-${info.date_of_introduction.slice(4)}`;
   const dateOfIntroduction = document.createElement('p');
-  dateOfIntroduction.textContent = `Date of introduction: ${dashedDateOfIntroduction}`;
+  dateOfIntroduction.textContent = dashedDateOfIntroduction;
+  const dateOfIntroductionSpan = document.createElement('span');
+  dateOfIntroductionSpan.textContent = 'Date of introduction: ';
+  dateOfIntroduction.insertAdjacentElement(
+    'afterbegin',
+    dateOfIntroductionSpan
+  );
 
   const parliamentaryConstituency = document.createElement('p');
-  parliamentaryConstituency.textContent = `Parliamentary Constituency: ${info.parliamentary_constituency}`;
+  parliamentaryConstituency.textContent = info.parliamentary_constituency;
+  const parliamentaryConstituencySpan = document.createElement('span');
+  parliamentaryConstituencySpan.textContent = 'Parliamentary Constituency: ';
+  parliamentaryConstituency.insertAdjacentElement(
+    'afterbegin',
+    parliamentaryConstituencySpan
+  );
 
   const primaryCareTrust = document.createElement('p');
-  primaryCareTrust.textContent = `Primary Care Trust: ${info.primary_care_trust}`;
+  primaryCareTrust.textContent = info.primary_care_trust;
+  const primaryCareTrustSpan = document.createElement('span');
+  primaryCareTrustSpan.textContent = 'Primary Care Trust: ';
+  primaryCareTrust.insertAdjacentElement('afterbegin', primaryCareTrustSpan);
+
+  const clinicalComissionGroup = document.createElement('p');
+  clinicalComissionGroup.textContent = info.ccg;
+  const clinicalComissionGroupSpan = document.createElement('span');
+  clinicalComissionGroupSpan.textContent = 'Clinical Comission Group: ';
+  clinicalComissionGroup.insertAdjacentElement(
+    'afterbegin',
+    clinicalComissionGroupSpan
+  );
 
   const policeForce = document.createElement('p');
-  policeForce.textContent = `Police Force: ${info.pfa}`;
+  policeForce.textContent = info.pfa;
+  const policeForceSpan = document.createElement('span');
+  policeForceSpan.textContent = 'Police Force: ';
+  policeForce.insertAdjacentElement('afterbegin', policeForceSpan);
 
-  basicInfoDiv.append(locationInfo);
-  basicInfoDiv.append(dateOfIntroduction);
-  basicInfoDiv.append(parliamentaryConstituency);
-  basicInfoDiv.append(primaryCareTrust);
-  basicInfoDiv.append(policeForce);
+  // add info icon to the first part of all info details elements
+  [
+    locationInfo,
+    dateOfIntroduction,
+    parliamentaryConstituency,
+    primaryCareTrust,
+    clinicalComissionGroup,
+    policeForce,
+  ].forEach((el) => {
+    const infoIcon = document.createElement('span');
+    infoIcon.className = 'info__icon';
+    infoIcon.innerHTML = '<i class="uil uil-info-circle"></i>';
+    el.insertAdjacentElement('afterbegin', infoIcon);
+  });
 
-  // basicInfoOutput.append(basicInfoHeader);
-  basicInfoOutput.append(postcodeImg);
+  basicInfoDetails.append(locationInfo);
+  basicInfoDetails.append(dateOfIntroduction);
+  basicInfoDetails.append(parliamentaryConstituency);
+  basicInfoDetails.append(primaryCareTrust);
+  basicInfoDetails.append(clinicalComissionGroup);
+  basicInfoDetails.append(policeForce);
+
+  basicInfoDiv.append(postcodeImg);
+  basicInfoDiv.append(basicInfoDetails);
+
+  basicInfoOutput.append(basicInfoHeader);
   basicInfoOutput.append(basicInfoDiv);
 };
