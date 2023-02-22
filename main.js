@@ -48,7 +48,6 @@ const handleSubmit = (e) => {
           monthFrom.year,
           12
         );
-
         getLongAndLat(postcode)
           .then((result) => {
             const { longitude, latitude } = result;
