@@ -28,7 +28,7 @@ The APIs utilised in this project are as follows:
 - [x] Input information to change the displayed result
 - [x] View the app on all of my devices
 - [x] Display some kind of indication that the data is loading
-- [ ] Display clear messages if something goes wrong
+- [x] Display clear messages if something goes wrong
 
 ## Acceptance Criteria
 - [x] Query at least two APIs using fetch
