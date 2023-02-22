@@ -33,9 +33,9 @@ The APIs utilised in this project are as follows:
 ## Acceptance Criteria
 - [x] Query at least two APIs using fetch
 - [x] Dynamic content generated with JS
-- [ ] A clearly defined user journey, documented in your readme
+- [x] A clearly defined user journey, documented in your readme
 - [x] A responsive, mobile-first design
-- [ ] Ensure your app is accessible to as many different users as possible
+- [x] Ensure your app is accessible to as many different users as possible
 
 ## Learning Outcomes
 This is the second project of Founders and Coders' Skills Bootcamp Cohort 27. The goal of the project <br />
@@ -48,7 +48,6 @@ is fulfilling the learning outcomes below:
 - [x] Use the fetch method to make HTTP requests and receive responses
 - [x] Configure the options argument of the fetch method to make GET and POST requests
 - [x] Use the map array method to create a new array containing new values
-- [ ] Use the filter array method to create a new array with certain values removed
 
 ### DOM
 - [x] Access DOM nodes using a variety of selectors
