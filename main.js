@@ -41,7 +41,7 @@ const handleSubmit = (e) => {
         // Set monthFrom to two months before the current month
         const monthFrom = CrimeData.getMonthsBefore(currentMonth, currentYear, 2);
         // Get 12 months before monthFrom
-        const monthTo = CrimeData.getMonthsBefore(monthFrom.month, monthFrom.year, 12);
+        const monthTo = CrimeData.getMonthsBefore(monthFrom.month, monthFrom.year, 2);
 
         getLongAndLat(postcode)
           .then((result) => {
