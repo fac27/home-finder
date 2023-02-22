@@ -13,6 +13,7 @@ export class CrimeData {
 
   async fetchCrimeData() {
     const baseUrl = 'https://data.police.uk/api/crimes-street/all-crime';
+    let fetchError = false;
 
     let baseUrlWithQueryString = `${baseUrl}?lat=${this.latitude}&lng=${this.longitude}`;
     let url = '';
@@ -78,10 +79,11 @@ export class CrimeData {
     userInfo.append(p);
     userInfo.append(progressBar);
     let crimeDataJson = [];
-    try {
-      await Promise.all(
-        allQueryStrings.map((qs) =>
-          fetch(qs).then((response) => {
+
+    await Promise.all(
+      allQueryStrings.map((qs) =>
+        fetch(qs)
+          .then((response) => {
             if (response.ok) {
               progressBar.value = Math.floor(
                 (++fetchNumber / totalFetches) * 100
@@ -89,22 +91,19 @@ export class CrimeData {
               progressBar.textContent = `${progressBar.value}%`;
               p.textContent = `Fetching crime data (${progressBar.value}%)`;
               return response.json();
-            } else {
-              throw new Error('Error fetching crime data');
             }
+          }).catch((error) => {
+            console.error("OH NO! This happened when fetching crime data:\n" + error);
+            userInfoContainer.style.display = 'none';
           })
-        )
-      ).then((json) => {
+      )
+    )
+      .then((json) => {
+        userInfoContainer.style.display = 'none';
         crimeDataJson.push(json);
         crimeDataJson = crimeDataJson.flat(2);
         this.#createCrimeDataFromJson(crimeDataJson);
-        // console.log(this.crimeIncidents);
       });
-    } catch (error) {
-      throw new Error('Error fetching crime data');
-    } finally {
-      userInfoContainer.style.display = 'none';
-    }
     return this;
   }
 
@@ -125,17 +124,21 @@ export class CrimeData {
   }
 
   #createCrimeDataFromJson(crimeDataJson) {
-    crimeDataJson.forEach((item) => {
-      const { category, month } = item;
-      const { latitude, longitude } = item.location;
 
-      this.crimeIncidents.push({
-        category: category,
-        latitude: latitude,
-        longitude: longitude,
-        month: month,
-      });
+    crimeDataJson.forEach((item) => {
+      if (item) {
+        const { category, month } = item;
+        const { latitude, longitude } = item.location;
+
+        this.crimeIncidents.push({
+          category: category,
+          latitude: latitude,
+          longitude: longitude,
+          month: month,
+        });
+      }
     });
+
   }
 
   summariseCrimeIncidents(field) {

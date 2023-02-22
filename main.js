@@ -55,26 +55,17 @@ const handleSubmit = (e) => {
             );
 
             crimeData.fetchCrimeData().then((response) => {
-              if (!response.toString().includes('Error')) {
-                displayCrimeInfo(crimeData, postcode.toUpperCase());
-              } else {
-                crimeError.textContent = 'Unable to fetch crime data';
-                console.error(response);
-              }
+              displayCrimeInfo(crimeData, postcode.toUpperCase());
             });
           })
           .catch((error) => {
             console.log(error);
-            crimeError.textContent = 'Unable to fetch crime data';
           });
       } else {
         postcodeError.textContent = 'Please enter a valid UK postcode';
         throw new Error("Couldn't fetch data!");
       }
     })
-    .catch((error) => {
-      console.log(error);
-    });
 
   postcodeForm.reset();
 };

@@ -10,6 +10,14 @@ export const displayTransportInfo = (buses) => {
   busesDivHeader.textContent = 'Nearest bus stops';
   busesDiv.append(busesDivHeader);
 
+  if (!buses || buses.length == 0) {
+    const busNoData = document.createElement('p');
+    busNoData.textContent = 'There is no bus data to display for this location';
+    busesDiv.append(busNoData);
+    transportContainer.append(busesDiv);
+    return;
+  }
+
   for (let busStop of buses) {
     const busStopName = document.createElement('p');
     busStopName.textContent = `${busStop.commonName}  Stop: ${

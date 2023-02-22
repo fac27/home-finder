@@ -4,7 +4,7 @@ import { convertToMonthName } from '../utils/convertToMonthName.js';
 
 const crimeInfoOutput = document.querySelector('#output__crime');
 const crimeChartOverlay = document.querySelector('#crime__chart--large');
-crimeChartOverlay.addEventListener('mouseup', () => {crimeChartOverlay.style.display='none';}, false);
+crimeChartOverlay.addEventListener('mouseup', () => { crimeChartOverlay.style.display = 'none'; }, false);
 
 export const displayCrimeInfo = (crimes, postcode) => {
   // clear the output element first
@@ -17,8 +17,13 @@ export const displayCrimeInfo = (crimes, postcode) => {
   crimeInfoHeader.className = 'crime__info-header';
   crimeInfoHeader.textContent = 'Crime statistics';
 
-  if (!crimes.total) {
-    crimeInfoOutput.textContent = `No recent crime data available for '${postcode}'.`;
+  const crimeSummary = document.createElement('p');
+
+  if (crimes.total === 0) {
+    crimeInfoDiv.append(crimeInfoHeader);
+    crimeSummary.textContent = 'No recent crime data available for this location.';
+    crimeInfoDiv.append(crimeSummary);
+    crimeInfoOutput.append(crimeInfoDiv);
     return;
   }
 
@@ -28,7 +33,7 @@ export const displayCrimeInfo = (crimes, postcode) => {
   const monthTo =
     crimes.monthTo == '' ? crimes.crimeIncidents[0].month : crimes.monthTo;
 
-  const crimeSummary = document.createElement('p');
+  
   crimeSummary.textContent = `There were ${crimes.total} crimes in '${postcode}' in the period ${monthFrom} to ${monthTo}.`;
 
   const crimeSummaryByCategory = crimes.summariseCrimeIncidents('category');
@@ -78,15 +83,15 @@ export const displayCrimeInfo = (crimes, postcode) => {
   pieChart.src = pieChartUrl;
   pieChart.alt = `Pie chart showing ${pieChartTitle}`;
   pieChart.setAttribute('aria-details', 'pie-desc');
-  
+
   const barChart = document.createElement('img');
   barChart.src = barChartUrl;
   barChart.alt = `Bar chart showing ${barChartTitle}`;
   barChart.setAttribute('aria-details', 'bar-desc');
 
   pieChart.style.cursor = barChart.style.cursor = 'zoom-in';
-  pieChart.addEventListener('mouseup', () => {toggleChartToFullScreen(pieChart);}, false);
-  barChart.addEventListener('mouseup', () => {toggleChartToFullScreen(barChart);}, false);
+  pieChart.addEventListener('mouseup', () => { toggleChartToFullScreen(pieChart); }, false);
+  barChart.addEventListener('mouseup', () => { toggleChartToFullScreen(barChart); }, false);
 
 
   crimeInfoDiv.append(crimeInfoHeader);

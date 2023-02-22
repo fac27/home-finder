@@ -14,7 +14,7 @@ export const getNearestBuses = async (postcode) => {
       const responseJson = await response.json();
       return responseJson.stopPoints;
     } else {
-      throw new Error("Couldn'nt get transport information");
+      throw new Error("Couldn't get transport information");
     }
   } catch (error) {
     console.log(error);
