@@ -53,6 +53,15 @@ export const displayBasicInfo = (info) => {
   primaryCareTrustSpan.textContent = 'Primary Care Trust: ';
   primaryCareTrust.insertAdjacentElement('afterbegin', primaryCareTrustSpan);
 
+  const clinicalComissionGroup = document.createElement('p');
+  clinicalComissionGroup.textContent = info.ccg;
+  const clinicalComissionGroupSpan = document.createElement('span');
+  clinicalComissionGroupSpan.textContent = 'Clinical Comission Group: ';
+  clinicalComissionGroup.insertAdjacentElement(
+    'afterbegin',
+    clinicalComissionGroupSpan
+  );
+
   const policeForce = document.createElement('p');
   policeForce.textContent = info.pfa;
   const policeForceSpan = document.createElement('span');
@@ -65,6 +74,7 @@ export const displayBasicInfo = (info) => {
     dateOfIntroduction,
     parliamentaryConstituency,
     primaryCareTrust,
+    clinicalComissionGroup,
     policeForce,
   ].forEach((el) => {
     const infoIcon = document.createElement('span');
@@ -77,6 +87,7 @@ export const displayBasicInfo = (info) => {
   basicInfoDetails.append(dateOfIntroduction);
   basicInfoDetails.append(parliamentaryConstituency);
   basicInfoDetails.append(primaryCareTrust);
+  basicInfoDetails.append(clinicalComissionGroup);
   basicInfoDetails.append(policeForce);
 
   basicInfoDiv.append(postcodeImg);

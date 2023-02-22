@@ -81,7 +81,7 @@ export class CrimeData {
     try {
       await Promise.all(
         allQueryStrings.map((qs) =>
-          fetch(qs, { mode: 'no-cors' }).then((response) => {
+          fetch(qs).then((response) => {
             if (response.ok) {
               progressBar.value = Math.floor(
                 (++fetchNumber / totalFetches) * 100
