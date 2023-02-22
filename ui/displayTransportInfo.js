@@ -9,7 +9,7 @@ export const displayTransportInfo = (buses) => {
   busesDivHeader.className = 'buses__div-header';
   busesDivHeader.textContent = 'Nearest bus stops';
   busesDiv.append(busesDivHeader);
-
+  
   // container for all bus details
   const detailsDiv = document.createElement('div');
   detailsDiv.className = 'details__div';
