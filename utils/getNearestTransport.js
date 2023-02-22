@@ -17,7 +17,7 @@ export const getNearestBuses = async (postcode) => {
       throw new Error("Couldn't get transport information");
     }
   } catch (error) {
-    console.log(error);
+    console.error("There was a problem fetching transport data:\n" + error);
   }
 };
 
