@@ -1,6 +1,8 @@
 const transportContainer = document.querySelector('#output__transport');
 
 export const displayTransportInfo = (buses) => {
+  transportContainer.innerHTML = '';
+
   // bus info section
   const busesDiv = document.createElement('div');
   busesDiv.className = 'buses__div';
@@ -91,8 +93,6 @@ export const displayTransportInfo = (buses) => {
     busDistancesDiv.append(busStopDistance);
     busNumbersDiv.append(busNumbers);
   }
-
-  transportContainer.innerHTML = '';
 
   detailsDiv.append(busNamesDiv);
   detailsDiv.append(busStopsDiv);
