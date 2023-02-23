@@ -63,12 +63,11 @@ export const displayCrimeInfo = (crimes, postcode) => {
   }
 
   // Set up month name array for chart titles
-
   const dateRangeString =
     'from ' +
-    convertToMonthName(crimes.monthTo) +
+    convertToMonthName(crimes.monthTo, true) +
     ' to ' +
-    convertToMonthName(crimes.monthFrom);
+    convertToMonthName(crimes.monthFrom, true);
 
   const barChartTitle = `Total crimes by month for ${postcode.toUpperCase()} ${dateRangeString}`;
   const pieChartTitle = `Crime incident types for ${postcode.toUpperCase()} ${dateRangeString}`;
