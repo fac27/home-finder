@@ -20,8 +20,8 @@ The APIs utilised in this project are as follows:
   ``` terminal
   git clone https://github.com/fac27/home-finder
   ```
-- Open the cloned repository in your preferred code editor and run Liveserver
-  - You can also run the Index.html file through your browser if needed
+- Make sure you have the extension **Liveserver** installed on your Vscode
+- Open the cloned repository in Vscode and run it
 
 ## User Stories
 - [x] See an interesting mashup of different data
