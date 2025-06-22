@@ -66,9 +66,10 @@ export const displayTransportInfo = (buses) => {
     busStopIndicator.textContent = `Stop: `;
 
     const busStopIndicatorSpan = document.createElement('span');
-    busStopIndicatorSpan.innerHTML = `${
-      busStop.indicator === 'Stop' ? '' : busStop.indicator
-    }`;
+    // busStopIndicatorSpan.innerHTML = `${
+    //   busStop.indicator === 'Stop' ? '' : busStop.indicator
+    // }`;
+    busStopIndicatorSpan.innerHTML = busStop.indicator;
     busStopIndicator.insertAdjacentElement('beforeend', busStopIndicatorSpan);
 
     const busStopDistance = document.createElement('p');
