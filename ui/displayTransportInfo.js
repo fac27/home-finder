@@ -63,7 +63,7 @@ export const displayTransportInfo = (buses) => {
     busStopName.insertAdjacentElement('afterbegin', busStopSpan);
 
     const busStopIndicator = document.createElement('p');
-    busStopIndicator.textContent = `Stop: `;
+    // busStopIndicator.textContent = `Stop: `;
 
     const busStopIndicatorSpan = document.createElement('span');
     // busStopIndicatorSpan.innerHTML = `${
