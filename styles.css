@@ -199,9 +199,12 @@ h3 {
 
 .buses__div .details__div {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1rem; */
+  flex-direction: row; /* change from column to row */
+  justify-content: flex-start;
+  gap: 1rem; /* adjust spacing between columns */
 }
 
 .buses__div .details__div div {
